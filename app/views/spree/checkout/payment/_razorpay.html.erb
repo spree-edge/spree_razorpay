@@ -1,0 +1,27 @@
+<button id="razorpay-button" class="btn btn-outline-success rounded-lg font-weight-bold"><%= Spree.t(:razorpay)%></button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<div id="payment-method-container" data-payment-method-id="<%= payment_method.id %>">
+</div>
+
+<div
+  id="razor-pay-options"
+  data-razor-pay-key="<%= payment_method.preferences[:key_id] %>"
+  data-razor-pay-amount="<%= current_order.inr_amt_in_paise %>"
+  data-razor-pay-currency="<%= current_order.currency %>"
+  data-razor-pay-name="<%= payment_method.preferences[:merchant_name] %>"
+  data-razor-pay-description="<%= payment_method.preferences[:merchant_description] %>"
+  data-razor-pay-callback-url="<%= razorpay_response_url(order_id: current_order.number, payment_method_id: payment_method.id) %>"
+
+  data-razor-pay-prefill-name="<%= current_order.try(:name) %>"
+  data-razor-pay-prefill-email="<%= current_order.try(:email) %>"
+  data-razor-pay-prefill-contact="<%= current_order.bill_address.phone %>"
+
+  data-razor-pay-notes-address="<%= payment_method.preferences[:merchant_address] %>"
+
+  data-razor-pay-theme-color="<%= payment_method.preferences[:theme_color] %>"
+
+  data-razor-pay-redirect="<%= false %>"
+  data-razor-pay-image="<%= '' %>"
+  data-razor-pay-order-id="<%= Razorpay::RpOrder::Api.new.create(current_order.try(:id)) %>"
+></div>
+
