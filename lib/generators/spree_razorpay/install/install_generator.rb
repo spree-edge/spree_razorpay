@@ -1,7 +1,13 @@
 module SpreeRazorpay
   module Generators
     class InstallGenerator < Rails::Generators::Base
+      source_root(File.expand_path(File.dirname(__FILE__)))
       class_option :migrate, type: :boolean, default: true
+
+      def add_javascripts
+        append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require spree/frontend/spree_razorpay\n"
+        append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require spree/frontend/process_razorpay\n"
+      end
 
       def add_migrations
         run 'bundle exec rake railties:install:migrations FROM=spree_razorpay'

@@ -1,4 +1,4 @@
-# SpreeRazorpay
+# Spree Razorpay
 
 Introduction goes here.
 
@@ -7,7 +7,7 @@ Introduction goes here.
 1. Add this extension to your Gemfile with this line:
 
     ```ruby
-    gem 'spree_razorpay'
+    gem 'spree_razorpay', github: 'Nextband-online/spree-razorpay'
     ```
 
 2. Install the gem using Bundler
@@ -22,9 +22,14 @@ Introduction goes here.
     bundle exec rails g spree_razorpay:install
     ```
 
+4. Make Sure to include Razorpay Javascript in 'vendor/assets/javascripts/spree/frontend':
+   ```//= require spree/frontend/process_razorpay
+      //= require spree/frontend/spree_razorpay 
+   ```
 4. Restart your server
 
   If your server was running, restart it so that it can find the assets properly.
+
 
 ## Testing
 
@@ -57,4 +62,4 @@ If you'd like to contribute, please take a look at the
 [instructions](CONTRIBUTING.md) for installing dependencies and crafting a good
 pull request.
 
-Copyright (c) 2022 [name of extension creator], released under the New BSD License
+Copyright (c) 2022 Spree Razorpay, released under the New BSD License

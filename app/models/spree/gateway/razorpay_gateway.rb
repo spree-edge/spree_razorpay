@@ -9,7 +9,6 @@ module Spree
     preference :merchant_address, :string
     preference :theme_color, :string, default: '#F37254'
 
-
     def supports?(_source)
       true
     end
@@ -25,18 +24,13 @@ module Spree
       )
     end
 
-    def credit(credit_cents, payment_id, transaction_id, originator)
-      razorpay_payment_id = Spree::Payment.find(payment_id).source.razorpay_payment_id
-      response = RazorpayRefund.new.perform(credit_cents, razorpay_payment_id, transaction_id)
-       ActiveMerchant::Billing::Response.new(
-        success(response),
+    def credit(credit_cents, transaction_id, originator)
+      response = Refund.new(credit_cents, id, transaction_id).perform
+      ActiveMerchant::Billing::Response.new(
+        response.code == "200",
         response, 
-        error_code: success(response) ? nil : "error"
-       )
-    end
-
-    def success(response)
-      response.code == "200"
+        error_code: response.code
+      )
     end
 
     def auto_capture?
