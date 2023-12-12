@@ -24,8 +24,8 @@ module Spree
       )
     end
 
-    def credit(credit_cents, transaction_id, originator)
-      response = Refund.new(credit_cents, id, transaction_id).perform
+    def credit(credit_cents, payment_id, originator)
+      response = RazorpayRefund.new.perform(credit_cents, payment_id)
       ActiveMerchant::Billing::Response.new(
         response.code == "200",
         response, 
