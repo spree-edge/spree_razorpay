@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency 'razorpay'
-  s.add_dependency 'spree', '4.6.2'
+  s.add_dependency 'spree', '>=4.8.0'
   s.add_dependency 'spree_backend'
   s.add_dependency 'spree_extension'
   s.add_dependency 'spree_frontend'
