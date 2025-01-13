@@ -21,7 +21,7 @@ module SpreeRazorpay
 
     config.after_initialize do |app|
       app.config.spree.payment_methods ||= []
-      app.config.spree.payment_methods << Spree::Gateway::RazorpayGateway
+      app.config.spree.payment_methods << ::Spree::Gateway::RazorpayGateway
     end
 
     config.to_prepare(&method(:activate).to_proc)
