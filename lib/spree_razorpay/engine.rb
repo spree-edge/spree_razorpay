@@ -9,7 +9,7 @@ module SpreeRazorpay
       g.test_framework :rspec
     end
 
-    initializer 'spree_razorpay.environment', before: :load_config_initializers do |_app|
+    config.after_initialize do |_app|
       SpreeRazorpay::Config = SpreeRazorpay::Configuration.new
     end
 
@@ -19,9 +19,9 @@ module SpreeRazorpay
       end
     end
 
-    initializer 'spree.gateway.payment_methods', after: 'spree.register.payment_methods' do |app|
+    config.after_initialize do |app|
       app.config.spree.payment_methods ||= []
-      app.config.spree.payment_methods << Spree::Gateway::RazorpayGateway
+      app.config.spree.payment_methods << ::Spree::Gateway::RazorpayGateway
     end
 
     config.to_prepare(&method(:activate).to_proc)
